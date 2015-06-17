@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+<p>
+	<h4>Comments: "Show" Page</h4>
+</p>
+
+<div>
+	<form action="/posts/<%= comment.post._id%>/comments/<%= comment._id%>/edit" method="POST">
+    <div>
+      <label for="title">Comment</label>
+      <input autofocus  type="textarea" name="title" id="title">
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <input type="text" name="content" id="content">
+    </div>
+    <div>
+      <input type="submit" value="Create Post" class ="btn btn-info">
+    </div>
+  </form>
+</div>
+
+<% include ../partials/footer %>

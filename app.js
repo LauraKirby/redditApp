@@ -98,6 +98,21 @@ app.delete('/posts/:id', function(req, res){
 		});
 });
 
+//-------------- Comment Routes -----------------------//
+//NEW 
+app.get('/posts/:post_id/comments/new', function(req, res){
+	db.Post.findById(req.params.post_id,
+		function(err, post) {
+			res.render("comments/new", {post:post})
+		});
+});
+
+//CREATE
+
+//-------------- User Routes -----------------------//
+
+
+
 // CATCH ALL
 app.get('*', function(req,res){
   res.render('404');
