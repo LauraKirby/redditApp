@@ -9,6 +9,7 @@ var postSchema = new mongoose.Schema({
 	title: String, 
 	content: String, 
 	imageUrl: String,
+	date: String,
 	comments:[{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Comment"

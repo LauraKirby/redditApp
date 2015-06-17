@@ -68,7 +68,11 @@ app.get('/posts/:id/edit', function(req, res){
 
 //UPDATE
 app.put('/posts/:id', function(req, res){
-	db.Post.findByIdAndUpdate(req.params.id, {title: req.body.title, content: req.body.content},
+	db.Post.findByIdAndUpdate(req.params.id, {
+		title: req.body.title, 
+		content: req.body.content, 
+		date: req.body.date 
+	},
 		function(err, post) {
 			if(err) {
 				res.render("posts/edit"); 
