@@ -16,7 +16,7 @@ var postSchema = new mongoose.Schema({
 	}]  
 });
 
-postSchema.pre('remove', function(nex){
+postSchema.pre('remove', function(next){
 	Comment.remove({post: this._id}).exec(); 
 	next(); 
 }); 
