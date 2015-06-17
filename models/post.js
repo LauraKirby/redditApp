@@ -6,7 +6,7 @@ var postSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId, 
 		ref: "User"
 	},
-	postTitle: String, 
+	title: String, 
 	content: String, 
 	imageUrl: String,
 	comments: [],  

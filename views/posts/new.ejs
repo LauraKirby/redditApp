@@ -1,5 +1,25 @@
 <% include ../partials/header %>
-<p>
-	<h4>Post: "New" Page</h4>
-</p>
+
+<div>
+	<p>
+	  <h4>Post: "New" Page</h4>
+  </p>
+</div>
+
+<div>
+	<form action="/posts" method="POST">
+    <div>
+      <label for="title">Post Title:</label>
+      <input autofocus  type="text" name="title" id="title">
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <input type="text" name="content" id="content">
+    </div>
+    <div>
+      <input type="submit" value="Create Post" class ="btn btn-info">
+    </div>
+    </form>
+</div>
+
 <% include ../partials/footer %>

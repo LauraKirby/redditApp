@@ -1,5 +1,21 @@
 <% include ../partials/header %>
-<p>
-	<h4>Post: "Index" Page</h4>
-</p>
+<div>
+	<p>
+	  <h4>Post: "Index" Page</h4>	
+  </p>
+</div>
+
+<div>
+	<h4>List of Posts:</h4>
+	<ul>
+		<% posts.forEach(function(post){ %>
+			<li><a href="/posts/<%= post._id %>"><%= post.title %></a> </li>
+			<%})%>
+	</ul>
+</div>
+
+<div>
+	  <a href="/posts/new" class ="btn btn-info">Add Post</a>
+</div>
+
 <% include ../partials/footer %>
