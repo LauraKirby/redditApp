@@ -2,4 +2,25 @@
 <p>
 	<h4>Post: "Edit" Page</h4>
 </p>
+
+<div>
+	<form action="/posts/<%= post._id%>?_method=put" method="POST">
+		<div>
+			<label for="title">Post Title:</label>
+			<input autofocus type="text" name="title"  value = "<%= post.title %>">
+		</div>
+		<div>
+			<label for="content">Content:</label>
+			<input type="content" name="content" value = "<%= post.content %>">
+		</div>
+		<div>
+			<label for="date">Date:</label>
+			<input type="date" name="date" value = "<%= post.date %>">
+		</div>
+		<div>
+			<input type="submit" value="Update" class ="btn btn-success">
+		</div>
+	</form>
+</div>
+
 <% include ../partials/footer %>

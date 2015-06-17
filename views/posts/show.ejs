@@ -4,9 +4,10 @@
 </p>
 
 <div>
-	<p> 
     <h5>Post Title: <%= post.title %> </h5>
-  </p>
+    	<ul>
+    	  <li>created on: <%= post.date %></li>
+    	</ul>
 </div>
 
 <div>
@@ -14,6 +15,8 @@
     Content: <%= post.content %> 
   </p>
 </div>
+
+<div> <a href="/posts/<%= post._id %>/edit" class="btn btn-info">Edit Post</a> </div>
 
 <div>
 	<p>
