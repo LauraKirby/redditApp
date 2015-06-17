@@ -30,7 +30,7 @@ app.get('/posts/new', function(req, res){
 
 //CREATE
 app.post('/posts', function(req, res){
-	db.Post.create({name: req.body.name, location: req.body.location}, 
+	db.Post.create({title: req.body.title, user: req.body.user}, 
 		function(err, post) {
 			if(err){
 				console.log(err); 
@@ -68,7 +68,7 @@ app.get('/posts/:id/edit', function(req, res){
 
 //UPDATE
 app.put('/posts/:id', function(req, res){
-	db.Post.findByIdAndUpdate(req.params.id, {name: req.body.name, location: req.body.location},
+	db.Post.findByIdAndUpdate(req.params.id, {title: req.body.title, user: req.body.user},
 		function(err, post) {
 			if(err) {
 				res.render("posts/edit"); 
