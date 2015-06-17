@@ -4,14 +4,13 @@
 </p>
 
 <div>
-	<form action="/posts/<%= comment.post._id%>/comments/<%= comment._id%>/edit" method="POST">
+	<form action="/posts/<%= post._id%>/comments/<%= comment._id%>/edit" method="POST">
     <div>
-      <label for="title">Comment</label>
-      <input autofocus  type="textarea" name="title" id="title">
+      
     </div>
     <div>
       <label for="content">Content:</label>
-      <input type="text" name="content" id="content">
+      <input autofocus type="text" name="content" class="content">
     </div>
     <div>
       <input type="submit" value="Create Post" class ="btn btn-info">

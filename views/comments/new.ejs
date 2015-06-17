@@ -2,4 +2,20 @@
 <p>
 	<h4>Comments: "New" Page</h4>
 </p>
+
+<div>
+	<form action="/posts/<%= post._id%>/comments" method="POST">
+    <div>
+      Comment on <%= post.title %> 
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <input autofocus type="text" name="content" id="content" class="content">
+    </div>
+    <div>
+      <input type="submit" value="Comment" class ="btn btn-info">
+    </div>
+  </form>
+</div>
+
 <% include ../partials/footer %>
