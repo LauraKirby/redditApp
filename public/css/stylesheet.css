@@ -1,4 +1,15 @@
+body {
+  line-height: 1;
+  margin-left: 20px; 
+}
+
+div 
+{
+	margin: 20px;
+
+	}
+
 ul
 {
     list-style-type: none;
-}
+  }
