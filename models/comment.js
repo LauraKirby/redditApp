@@ -10,4 +10,7 @@ var commentSchema = new mongoose.Schema({
 		ref: "Post"
 	},
 	date: Number
-})
+});
+
+var Comment = mongoose.model("Comment", commentSchema); 
+module.exports = Comment; 

@@ -11,7 +11,10 @@ var userSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Post"
 	},
-	comments: []
+	comments:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: "Comment"
+	}]
 });
 
 //deleting a user will delete all of their posts and comments 
