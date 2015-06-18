@@ -101,9 +101,9 @@ app.delete('/posts/:id', function(req, res){
 
 //-------------- Comment Routes -----------------------//
 
-//INDEX - list post and all comments - implement logic from CREATE
+//INDEX - list post and all comments 
 app.get('/posts/:post_id/comments', function(req, res){
-	//.populate('comments') - we did this my hand - 
+	//.populate('comments') - we did this my hand with post.comments
 	//here doing two reads 
 	//instead of two writes and one read
 	db.Post.findById(req.params.post_id).exec(function(err,post){
