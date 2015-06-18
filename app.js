@@ -30,7 +30,7 @@ app.get('/posts/new', function(req, res){
 
 //CREATE
 app.post('/posts', function(req, res){
-	db.Post.create({title: req.body.title, content: req.body.content}, 
+	db.Post.create({title: req.body.title, content: req.body.content, date: req.body.date}, 
 		function(err, post) {
 			if(err){
 				console.log(err); 

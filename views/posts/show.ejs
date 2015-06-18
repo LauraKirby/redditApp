@@ -18,21 +18,21 @@
 
 <div> 
   <p>
-  	<a href="/posts/<%= post._id %>/edit" class="btn btn-info">Edit</a> 
+  	<a href="/posts/<%= post._id %>/edit" class="btn btn-warning">Edit</a> 
   </p>
 </div>
 
 <div> 
   <p>
     <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-      <input type="submit" value="Delete" class ="btn btn-warning">
+      <input type="submit" value="Delete" class ="btn btn-danger">
     </form>	
   </p>
 </div>
 
 <div>
 	<p>
-    <a href="/posts/<%= post._id %>/comments/" class ="btn btn-default">View Comments</a>
+    <a href="/posts/<%= post._id %>/comments/" class ="btn btn-primary">View Comments</a>
   </p>
 </div>
 
