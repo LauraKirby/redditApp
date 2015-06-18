@@ -10,10 +10,11 @@ var postSchema = new mongoose.Schema({
 	content: String, 
 	imageUrl: String,
 	date: String,
-	comments:[{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: "Comment"
-	}]  
+	//comments: 
+	// comments:[{
+	// 	type: mongoose.Schema.Types.ObjectId,
+	// 	ref: "Comment"
+	// }]  
 });
 
 postSchema.pre('remove', function(next){

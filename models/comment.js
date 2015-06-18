@@ -10,7 +10,8 @@ var commentSchema = new mongoose.Schema({
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "Post"
 	},
-	date: Number
+	date: Number,
+	content: String
 });
 
 var Comment = mongoose.model("Comment", commentSchema); 

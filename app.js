@@ -102,8 +102,16 @@ app.delete('/posts/:id', function(req, res){
 
 //INDEX - list post and all comments
 app.get('/posts/:post_id/comments', function(req, res){
-	db.Post.findById(req.params.post_id).populate('animals').exec(function(err,post){
-		res.render("comments/index");
+	//.populate('comments') - we did this my hand - 
+	//here doing two reads 
+	//instead of two writes and one read
+	db.Post.findById(req.params.post_id).exec(function(err,post){
+		if (err) throw err
+		db.Comment.find({post: req.params.post_id}, function(err, comments){
+			if (err) throw err
+			post.comments = comments;
+			res.render("comments/index", {post:post});
+		});
 	});
 });
 
@@ -115,21 +123,16 @@ app.get('/posts/:post_id/comments/new', function(req, res){
 		});
 });
 
+
 //CREATE
 app.post('/posts/:post_id/comments', function(req,res){
-	db.Comment.create(req.body.comment, function(err, comments){
+	db.Comment.create({post:req.params.post_id, content: req.body.content}, function(err, comments){
 		if(err){
 			console.log(err); 
 			res.render("comments/new"); 
 		}
 		else {
-			db.Post.findById(req.params.post_id, function(err, post){
-				post.comments.push(comments); 
-				comments.post = post._id; 
-				comments.save(); 
-				post.save(); 
-				res.redirect("/posts/" + req.params.post_id + "/comments"); 
-			});
+			res.redirect('/posts/' + req.params.post_id + '/comments');
 		}
 	});
 });
