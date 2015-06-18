@@ -52,6 +52,7 @@ app.get('/posts/:id', function(req, res){
 				_id:{$in: post.comments}
 			}, 
 			function(err, comments){
+				//add forEach to index.ejs for POST 
 				res.render("posts/show", {post:post, comments:comments});
 			});
 		});
@@ -100,7 +101,7 @@ app.delete('/posts/:id', function(req, res){
 
 //-------------- Comment Routes -----------------------//
 
-//INDEX - list post and all comments
+//INDEX - list post and all comments - implement logic from CREATE
 app.get('/posts/:post_id/comments', function(req, res){
 	//.populate('comments') - we did this my hand - 
 	//here doing two reads 
@@ -123,10 +124,9 @@ app.get('/posts/:post_id/comments/new', function(req, res){
 		});
 });
 
-
 //CREATE
 app.post('/posts/:post_id/comments', function(req,res){
-	db.Comment.create({post:req.params.post_id, content: req.body.content}, function(err, comments){
+	db.Comment.create({post:req.params.post_id, content: req.body.content, date: req.body.date}, function(err, comments){
 		if(err){
 			console.log(err); 
 			res.render("comments/new"); 
@@ -137,17 +137,17 @@ app.post('/posts/:post_id/comments', function(req,res){
 	});
 });
 
-//SHOW
-app.get('/animals/:id', function(req,res){
-	db.Comment.findById(req.params.id)
-	.populate('post')
-	.exec(function(err, comment){
-		res.render("animals/show", {comment:comment}); 
-	});
+//DESTROY
+app.delete('/comments/:id', function(req, res){
+	db.Comment.findByIdAndRemove(req.params.id, 
+		function(err, comment){
+			if (err) throw err; 
+			//.post refers to the post id as defined within the comment schema
+			res.redirect("/posts/"+ comment.post +"/comments")
+		});
 });
 
 //-------------- User Routes -----------------------//
-
 
 
 // CATCH ALL

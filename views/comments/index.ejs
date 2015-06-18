@@ -13,14 +13,18 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td><%= post.content %></td>
+				<td>Expanded Post: <%= post.content %></td>
+				<td></td>
 			</tr>
 
-
-			<% post.comments.forEach(function(comment){ %>
 			<tr>
-				<td>Comment: <%= comment.content %> Date:</td>
-				<td><form action="/comments/<%= comment._id %>?_method=delete" method= "POST"><input type="submit" value="X" class="btn btn-danger btn-xs"></form></td>
+			  <% post.comments.forEach(function(comment){ %>
+				<td>
+				  Comment: <%= comment.content %> Date:<%= comment.date %>
+				</td>
+				<td>
+					<form action="/comments/<%= comment._id %>?_method=delete" method= "POST"><input type="submit" value="X" class="btn btn-danger btn-xs"></form> 
+				</td> 
 			</tr>
 			<% })%>
 		</tbody>
