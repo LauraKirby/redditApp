@@ -99,6 +99,14 @@ app.delete('/posts/:id', function(req, res){
 });
 
 //-------------- Comment Routes -----------------------//
+
+//INDEX - list post and all comments
+app.get('/posts/:post_id/comments', function(req, res){
+	db.Post.findById(req.params.post_id).populate('animals').exec(function(err,post){
+		res.render("comments/index");
+	});
+});
+
 //NEW 
 app.get('/posts/:post_id/comments/new', function(req, res){
 	db.Post.findById(req.params.post_id,
@@ -108,6 +116,32 @@ app.get('/posts/:post_id/comments/new', function(req, res){
 });
 
 //CREATE
+app.post('/posts/:post_id/comments', function(req,res){
+	db.Comment.create(req.body.comment, function(err, comments){
+		if(err){
+			console.log(err); 
+			res.render("comments/new"); 
+		}
+		else {
+			db.Post.findById(req.params.post_id, function(err, post){
+				post.comments.push(comments); 
+				comments.post = post._id; 
+				comments.save(); 
+				post.save(); 
+				res.redirect("/posts/" + req.params.post_id + "/comments"); 
+			});
+		}
+	});
+});
+
+//SHOW
+app.get('/animals/:id', function(req,res){
+	db.Comment.findById(req.params.id)
+	.populate('post')
+	.exec(function(err, comment){
+		res.render("animals/show", {comment:comment}); 
+	});
+});
 
 //-------------- User Routes -----------------------//
 
