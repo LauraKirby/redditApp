@@ -2,16 +2,29 @@ var express = require("express"),
 	app = express(), 
 	bodyParser = require("body-parser"), 
 	methodOverride = require("method-override"), 
-	db = require("./models"); 
+	db = require("./models"),
+	session = require("cookie-session"), 
+	//could we export the middleware in our index.js file? 
+	loginMiddleware = require("./middleware/loginHelper"), 
+	routeMiddleware = require("./middleware/routeHelper"); 
 
 app.set('view engine', 'ejs'); 
 app.use(methodOverride('_method')); 
 app.use(express.static(__dirname + '/public')); 
 app.use(bodyParser.urlencoded({extended:true})); 
+app.use(loginMiddleware);
+
+app.use(session({
+	maxAge: 360000, 
+	secret: 'whoknows',
+	name: "tcho chocolate"
+}));
+
+app.use(loginMiddleware); 
 
 //------------ POST ROUTES ----------------//
 //ROOT
-app.get('/', function(req, res){
+app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){
 	res.redirect("/posts");
 });
 
@@ -21,6 +34,45 @@ app.get('/posts', function(req, res){
 		function(err, posts){
 			res.render('posts/index', {posts:posts});  
 	});	
+});
+
+//SIGNUP - render form
+app.get('/users/signup', routeMiddleware.preventLoginSignup, function(req, res){
+	res.render('users/signup'); 
+});
+
+//SIGNUP - POST data from signup form
+app.post("/signup", function(req, res){
+	var newUser = req.body.user; 
+	db.User.create(newUser, function(err, user){
+		if(user){
+			req.login(user); 
+			res.redirect("/posts"); 
+		} else {
+			console.log(err); 
+			//TODO handle errors in ejs
+			res.render("users/signup")
+		}
+	});
+});
+
+//LOGIN - get form to render
+app.get("/login", routeMiddleware.preventLoginSignup, function(req, res){
+	res.render("users/login"); 
+});
+
+//LOGIN - post data to database
+app.post("/login", function(req, res){
+	db.User.authenticate(req.body.user, 
+		function(err, user){
+			if(!err && user !== null){
+				req.login(user); 
+				req.redirect("/posts"); 
+			} else {
+				//TODO handle errors in ejs
+				res.render("users/login"); 
+			}
+	});
 });
 
 //NEW

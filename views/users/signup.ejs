@@ -1,0 +1,29 @@
+<% include ../partials/header %>
+<p>
+	<h4>User: "Signup" Page</h4>
+</p>
+
+
+<form action="/signup" method="POST">
+		<div>
+			<label for="firstName">First Name:</label>
+			<input autofocus type="text" name="user[firstName]"  value = "">
+		</div>
+		<div>
+			<label for="lastName">Last Name:</label>
+			<input type="text" name="user[lastName]" value = "">
+		</div>
+		<div>
+			<label for="email">Email:</label>
+			<input type="text" name="user[email]" value = "">
+		</div>
+		<div>
+			<label for="password">Password:</label>
+			<input type="text" name="user[password]" value = "">
+		</div>
+		<div>
+			<input type="submit" value="Login" class ="btn btn-success">
+		</div>
+	</form>
+
+<% include ../partials/footer %>
