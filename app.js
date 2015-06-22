@@ -24,7 +24,8 @@ app.use(loginMiddleware);
 
 //------------ POST ROUTES ----------------//
 //ROOT
-app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){
+app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){ 
+	console.log("hi")
 	res.redirect("/posts");
 });
 
@@ -32,7 +33,7 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){
 app.get('/posts', function(req, res){
 	db.Post.find({}, 
 		function(err, posts){
-			res.render('posts/index', {posts:posts});  
+			res.render('posts/index', {posts:posts}); 
 	});	
 });
 
