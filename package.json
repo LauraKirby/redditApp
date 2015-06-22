@@ -1,21 +1,29 @@
 {
-  "name": "reddit",
+  "name": "test",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LauraKirby/redditApp.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LauraKirby/redditApp/issues"
+  },
+  "homepage": "https://github.com/LauraKirby/redditApp",
   "dependencies": {
     "bcrypt": "^0.8.3",
     "body-parser": "^1.13.1",
     "cookie-session": "^1.1.0",
     "ejs": "^2.3.1",
-    "express": "^4.12.4",
+    "express": "^4.13.0",
     "method-override": "^2.3.3",
-    "mongoose": "^4.0.5",
+    "mongoose": "^4.0.6",
     "morgan": "^1.6.0"
   }
 }

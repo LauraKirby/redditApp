@@ -1,5 +1,6 @@
 var mongoose = require("mongoose"); 
-mongoose.connect("mongodb://localhost/redditAuth"); 
+mongoose.connect("mongodb://localhost/testing"); 
+// mongoose.connect("mongodb://localhost/reddit_clone");
 
 mongoose.set("debug", true);
 
