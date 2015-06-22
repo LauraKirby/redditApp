@@ -41,7 +41,7 @@ app.get('/users/signup', routeMiddleware.preventLoginSignup, function(req, res){
 	res.render('users/signup'); 
 });
 
-//SIGNUP - POST data from signup form
+//SIGNUP - POST data from signup form to database
 app.post("/signup", function(req, res){
 	var newUser = req.body.user; 
 	db.User.create(newUser, function(err, user){
@@ -56,12 +56,12 @@ app.post("/signup", function(req, res){
 	});
 });
 
-//LOGIN - get form to render
+//LOGIN - render login form
 app.get("/login", routeMiddleware.preventLoginSignup, function(req, res){
 	res.render("users/login"); 
 });
 
-//LOGIN - post data to database
+//LOGIN - post login data from form to database
 app.post("/login", function(req, res){
 	db.User.authenticate(req.body.user, 
 		function(err, user){
