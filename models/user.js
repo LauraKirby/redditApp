@@ -50,11 +50,11 @@ userSchema.pre('save', function(next){
 userSchema.statics.authenticate = function(formData, callback){
 	//'this' refers to the model
 	this.findOne({
-		name: formData.name
+		email: formData.email
 	}, 
 	function(err, user){
-		if(user = null){
-			callback("Invalid username or password")
+		if(user === null){
+			callback("Invalid username or password", null)
 		}
 		else {
 			user.checkPassword(formData.password, callback); 

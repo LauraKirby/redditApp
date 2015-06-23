@@ -25,7 +25,7 @@ app.use(loginMiddleware);
 //------------ POST ROUTES ----------------//
 //ROOT
 app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){ 
-	console.log("hi")
+	console.log("redirected back to posts")
 	res.redirect("/posts");
 });
 
@@ -33,7 +33,11 @@ app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){
 app.get('/posts', function(req, res){
 	db.Post.find({}, 
 		function(err, posts){
-			res.render('posts/index', {posts:posts}); 
+			if (err){
+				console.log("error from /posts/index" + err)
+			} else {
+				res.render('posts/index', {posts:posts}); 
+			}
 	});	
 });
 
@@ -50,7 +54,7 @@ app.post("/signup", function(req, res){
 			req.login(user); 
 			res.redirect("/posts"); 
 		} else {
-			console.log(err); 
+			console.log("signup post error" + err); 
 			//TODO handle errors in ejs
 			res.render("users/signup")
 		}
@@ -58,17 +62,19 @@ app.post("/signup", function(req, res){
 });
 
 //LOGIN - render login form
-app.get("/login", routeMiddleware.preventLoginSignup, function(req, res){
+app.get("/users/login", routeMiddleware.preventLoginSignup, function(req, res){
 	res.render("users/login"); 
 });
 
 //LOGIN - post login data from form to database
 app.post("/login", function(req, res){
+	//console.log(db.User);
 	db.User.authenticate(req.body.user, 
 		function(err, user){
+			console.log("this is a user" + user)
 			if(!err && user !== null){
 				req.login(user); 
-				req.redirect("/posts"); 
+				res.redirect("/posts"); 
 			} else {
 				//TODO handle errors in ejs
 				res.render("users/login"); 
