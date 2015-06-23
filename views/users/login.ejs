@@ -18,4 +18,12 @@
 		</div>
 	</form>
 
+	<div>
+	<% if(errorMessage) { %>
+	 <p>
+	 	<%= errorMessage  %>
+	 </p> 
+	 <% }; %>
+</div>
+
 <% include ../partials/footer %>

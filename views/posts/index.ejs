@@ -26,4 +26,13 @@
   <a href="/users/signup">or sign-up</a> 
 </div>
 
+<div>
+	<% if(errorMessage) { %>
+	 <p>
+	 	<%= errorMessage  %>
+	 </p> 
+	 <% }; %>
+</div>
+
+
 <% include ../partials/footer %>

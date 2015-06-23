@@ -6,8 +6,10 @@ var express = require("express"),
 	session = require("cookie-session"), 
 	//could we export the middleware in our index.js file? 
 	loginMiddleware = require("./middleware/loginHelper"), 
-	routeMiddleware = require("./middleware/routeHelper"); 
+	routeMiddleware = require("./middleware/routeHelper"), 
+	morgan = require("morgan");
 
+app.use(morgan('tiny'));
 app.set('view engine', 'ejs'); 
 app.use(methodOverride('_method')); 
 app.use(express.static(__dirname + '/public')); 
@@ -24,6 +26,8 @@ app.use(loginMiddleware);
 
 //------------ POST ROUTES ----------------//
 //ROOT
+//is the redirect causing the message to appear everytime bc the user is undefined?
+//can i make the route route a render instead of redirect?
 app.get('/', routeMiddleware.ensureLoggedIn, function(req, res){ 
 	console.log("redirected back to posts")
 	res.redirect("/posts");
@@ -36,7 +40,7 @@ app.get('/posts', function(req, res){
 			if (err){
 				console.log("error from /posts/index" + err)
 			} else {
-				res.render('posts/index', {posts:posts}); 
+				res.render('posts/index', {posts:posts, errorMessage: undefined}); 
 			}
 	});	
 });
@@ -83,8 +87,16 @@ app.post("/login", function(req, res){
 });
 
 //NEW
-app.get('/posts/new', function(req, res){
-	res.render("posts/new");
+//require login for user to create a new post, add route middleware
+app.get('/posts/new', routeMiddleware.ensureLoggedIn, function(req, res){
+	console.log('entered posts/new')
+	db.User.find({}, function(err, users){
+		if(err){
+			console.log("posts/new error " + err); 
+		} else {
+			res.render("posts/new"); 
+		}
+	})
 });
 
 //CREATE
@@ -93,7 +105,7 @@ app.post('/posts', function(req, res){
 		function(err, post) {
 			if(err){
 				console.log(err); 
-				res.render("posts/new"); 
+				res.render("posts/index", {errorMessage: "you must be logged in to write a post"}); 
 			}
 			else {
 				console.log(post); 
